@@ -24,15 +24,17 @@ def submit():
     leave_date = request.form["leave_date"]
     leave_type = request.form["leave_type"]
 
+    # Check leave rules
     status, reason = check_leave(
         employee_id,
-        leave_date,
-        leave_type
+        leave_date
     )
 
+    # Deduct leave only if approved
     if status == "Approved":
         deduct_leave_balance(employee_id)
 
+    # Save the request
     save_request(
         employee_id,
         leave_date,
@@ -53,7 +55,7 @@ def submit():
 
     <p><strong>Reason:</strong> {reason}</p>
 
-    /Submit Another</a>
+    <a href="/">Submit Another Request</a>
     """
 
 
